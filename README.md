@@ -142,23 +142,10 @@ GRANT SELECT ON natural_parks.project TO 'auditor'@'localhost';
 
 ***
 
-## Contributions
-
-- **Juan Figueroa** : Solo Developer.
-
-***
-
-## License and Contact
-
-**License**: MIT.\
-**Contact**: [juancrfig@gmail.com](mailto\:juancrfig@gmail.com) | [Submit an issue on GitHub](https://github.com/juancrfig/sql_project/issues).
-
-***
-
 ## Repository Structure Summary
 
 ```bash
-natural-parks/  
+sql_project/  
 ├── DDL/  
 │   └── ddl.sql                 # Table and relationship creation  
 ├── DML/  
@@ -177,3 +164,10 @@ natural-parks/
 │   └── Diagram.jpg            # ER diagram of the database  
 └── README.md                   # Main documentation  
 ```
+
+***
+
+## License and Contact
+
+**License**: MIT.\
+**Contact**: [juancrfig@gmail.com](mailto\:juancrfig@gmail.com) | [Submit an issue on GitHub](https://github.com/juancrfig/sql_project/issues).
