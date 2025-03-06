@@ -16,13 +16,13 @@ CREATE TABLE species (
     id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
     type ENUM('vegetable', 'animal', 'mineral') NOT NULL,
     common_name VARCHAR(150) NOT NULL CHECK(TRIM(common_name) != '') UNIQUE,
-    scientific_name VARCHAR(255) NOT NULL CHECK(TRIM(common_name) != '') UNIQUE
+    scientific_name VARCHAR(255) NOT NULL CHECK(TRIM(scientific_name) != '') UNIQUE
 );
 
 CREATE TABLE area_species (
-    area_id INT NOT NULL UNSIGNED,
-    species_id INT NOT NULL UNSIGNED,
-    population INT NOT NULL UNSIGNED,
+    area_id INT UNSIGNED NOT NULL,
+    species_id INT UNSIGNED NOT NULL,
+    population INT UNSIGNED NOT NULL,
     FOREIGN KEY(area_id) REFERENCES area(id) ON DELETE CASCADE,
     FOREIGN KEY(species_id) REFERENCES species(id) ON DELETE CASCADE
 );
@@ -41,8 +41,8 @@ CREATE TABLE employee (
     -- La primer cédula tuvo asignado el número 1
     cedula BIGINT NOT NULL UNIQUE CHECK(cedula > 0),
     name VARCHAR(150) NOT NULL CHECK(TRIM(name) != ''),
-    address VARCHAR(100) NOT NULL CHECK(TRIM(name) != ''),
-    mobile_phone INT UNSIGNED NOT NULL CHECK(phone >= 1000000000),
+    address VARCHAR(100) NOT NULL CHECK(TRIM(address) != ''),
+    mobile_phone INT UNSIGNED NOT NULL CHECK(mobile_phone >= 1000000000),
     salary DECIMAL(10,2) NOT NULL CHECK(salary > 0),
     role_type ENUM('Management', 'Vigilance', 'Conservation', 'Research') NOT NULL
 );
@@ -74,7 +74,7 @@ CREATE TABLE project_researcher (
     PRIMARY KEY(project_id, researcher_id),
     FOREIGN KEY(project_id) REFERENCES project(id) ON DELETE CASCADE,
     FOREIGN KEY(researcher_id) REFERENCES research_staff(employee_id) ON DELETE CASCADE
-)
+);
 
 CREATE TABLE project_researcher_species (
     project_id INT UNSIGNED NOT NULL,
@@ -88,47 +88,47 @@ CREATE TABLE project_researcher_species (
 
 CREATE TABLE park (
     id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
-    name VARCHAR(150) NOT NULL UNIQUE,
+    name VARCHAR(150) NOT NULL UNIQUE CHECK(TRIM(name) != ''),
     foundation_date DATE NOT NULL
 );
 
 CREATE TABLE entrance (
-    id INT PRIMARY KEY UNSIGNED AUTO_INCREMENT,
-    park_id INT NOT NULL UNSIGNED,
-    entrance_number INT NOT NULL UNSIGNED,
+    id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+    park_id INT UNSIGNED NOT NULL,
+    entrance_number INT UNSIGNED NOT NULL,
     FOREIGN KEY(park_id) REFERENCES park(id) ON DELETE CASCADE
 );
 
 CREATE TABLE department (
-    id INT PRIMARY KEY AUTO_INCREMENT UNSIGNED,
-    name VARCHAR(150) NOT NULL UNIQUE,
-    entity VARCHAR(100) NOT NULL,
+    id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(150) NOT NULL UNIQUE CHECK(TRIM(name) != ''),
+    entity VARCHAR(100) NOT NULL CHECK(TRIM(entity) != '')
 );
 
 CREATE TABLE department_park (
-    department_id INT NOT NULL UNSIGNED,
-    park_id INT NOT NULL UNSIGNED,
+    department_id INT UNSIGNED NOT NULL,
+    park_id INT UNSIGNED NOT NULL,
     PRIMARY KEY (department_id, park_id),
-    FOREIGN KEY (department_id) REFERENCES department.id,
-    FOREIGN KEY (park_id) REFERENCES park.id
+    FOREIGN KEY (department_id) REFERENCES department(id),
+    FOREIGN KEY (park_id) REFERENCES park(id)
 );
 
 CREATE TABLE park_area (
-    id INT PRIMARY KEY  UNSIGNED AUTO_INCREMENT,
+    id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(100) NOT NULL UNIQUE CHECK(TRIM(name) != ''),
-    extent FLOAT NOT NULL
+    extent FLOAT NOT NULL CHECK(extent > 0)
 );
 
 CREATE TABLE vehicle (
-    id INT PRIMARY KEY AUTO_INCREMENT UNSIGNED,
+    id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
     type VARCHAR(200) NOT NULL CHECK(TRIM(type) != ''),
     brand VARCHAR(100) NOT NULL CHECK(TRIM(brand) != '')
 );
 
 CREATE TABLE vigilance_area (
-    vigilance_id INT NOT NULL UNSIGNED,
-    area_id INT NOT NULL UNSIGNED,
-    vehicle_id INT NOT NULL UNSIGNED,
+    vigilance_id INT UNSIGNED NOT NULL,
+    area_id INT UNSIGNED NOT NULL,
+    vehicle_id INT UNSIGNED NOT NULL,
     PRIMARY KEY(vigilance_id, area_id),
     FOREIGN KEY(vigilance_id) REFERENCES vigilance_staff(employee_id) ON DELETE CASCADE,
     FOREIGN KEY(area_id) REFERENCES area(id) ON DELETE CASCADE,
@@ -136,26 +136,26 @@ CREATE TABLE vigilance_area (
 );
 
 CREATE TABLE conservation_area (
-    conservation_id INT NOT NULL UNSIGNED,
-    area_id INT NOT NULL UNSIGNED,
+    conservation_id INT UNSIGNED NOT NULL,
+    area_id INT UNSIGNED NOT NULL,
     PRIMARY KEY(conservation_id, area_id),
     FOREIGN KEY(conservation_id) REFERENCES conservation_staff(employee_id) ON DELETE CASCADE,
     FOREIGN KEY(area_id) REFERENCES area(id) ON DELETE CASCADE
 );
 
 CREATE TABLE entrance_shift (
-    id INT NOT NULL UNSIGNED PRIMARY KEY AUTO_INCREMENT,
-    employee_id INT NOT NULL UNSIGNED,
-    entrance_id INT NOT NULL UNSIGNED,
+    id INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    employee_id INT UNSIGNED NOT NULL,
+    entrance_id INT UNSIGNED NOT NULL,
     begin DATETIME NOT NULL,
     end DATETIME NOT NULL,
-    CHECK (end, begin),
+    CHECK (end < begin),
     FOREIGN KEY(employee_id) REFERENCES employee(id),
     FOREIGN KEY(entrance_id) REFERENCES entrance(id)
 );
 
 CREATE TABLE visitor (
-    id INT NOT NULL UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+    id INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
     -- La primer cédula tuvo asignado el número 1
     cedula BIGINT NOT NULL UNIQUE CHECK(cedula > 0),
     name VARCHAR(150) NOT NULL CHECK(TRIM(name) != ''),
@@ -164,8 +164,8 @@ CREATE TABLE visitor (
 );
 
 CREATE TABLE lodging (
-    id INT NOT NULL UNSIGNED PRIMARY KEY AUTO_INCREMENT,
-    park_id NOT NULL UNSIGNED,
+    id INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    park_id INT UNSIGNED NOT NULL,
     name VARCHAR(150) NOT NULL CHECK(TRIM(name) != ''),
     capacity INT NOT NULL CHECK(capacity > 0),
     category VARCHAR(100) NOT NULL CHECK(TRIM(category) != ''),
@@ -173,9 +173,9 @@ CREATE TABLE lodging (
 );
 
 CREATE TABLE visitor_stay (
-    id INT NOT NULL UNSIGNED PRIMARY KEY AUTO_INCREMENT,
-    visitor_id INT NOT NULL UNSIGNED,
-    lodging_id INT NOT NULL UNSIGNED,
+    id INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    visitor_id INT UNSIGNED NOT NULL,
+    lodging_id INT UNSIGNED NOT NULL,
     check_in DATETIME NOT NULL,
     check_out DATETIME NOT NULL,
     CHECK(check_out > check_in),
@@ -184,10 +184,10 @@ CREATE TABLE visitor_stay (
 );
 
 CREATE TABLE visitor_log (
-    id INT NOT NULL UNSIGNED PRIMARY KEY AUTO_INCREMENT,
-    entrance_shift_id INT NOT NULL UNSIGNED,
+    id INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    entrance_shift_id INT UNSIGNED NOT NULL,
     visit_time DATETIME NOT NULL,
-    visitor_id INT NOT NULL UNSIGNED,
+    visitor_id INT UNSIGNED NOT NULL,
     FOREIGN KEY(entrance_shift_id) REFERENCES entrance_shift(id) ON DELETE CASCADE,
     FOREIGN KEY(visitor_id) REFERENCES visitor(id) ON DELETE CASCADE
 );
