@@ -192,3 +192,15 @@ CREATE TABLE visitor_log (
     FOREIGN KEY(visitor_id) REFERENCES visitor(id) ON DELETE CASCADE
 );
 
+CREATE TABLE responsible_entity (
+    id INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(150) NOT NULL CHECK(TRIM(name) != '')
+);
+
+CREATE TABLE department_entity (
+    department_id INT UNSIGNED NOT NULL,
+    entity_id INT UNSIGNED NOT NULL,
+    PRIMARY KEY(department_id, entity_id),
+    FOREIGN KEY(department_id) REFERENCES department(id) ON DELETE CASCADE,
+    FOREIGN KEY(entity_id) REFERENCES responsible_entity(id) ON DELETE CASCADE
+);
