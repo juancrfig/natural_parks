@@ -8,15 +8,16 @@ USE natural_parks;
 
 CREATE TABLE area (
     id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
-    name VARCHAR(255) NOT NULL CHECK(TRIM(name) != ''),
+    name VARCHAR(50) NOT NULL CHECK(TRIM(name) != ''),
     extent FLOAT NOT NULL CHECK(extent > 0)
 );
 
 CREATE TABLE species (
     id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
     type ENUM('vegetable', 'animal', 'mineral') NOT NULL,
-    common_name VARCHAR(150) NOT NULL CHECK(TRIM(common_name) != '') UNIQUE,
-    scientific_name VARCHAR(255) NOT NULL CHECK(TRIM(scientific_name) != '') UNIQUE
+    common_name VARCHAR(50) NOT NULL CHECK(TRIM(common_name) != '') UNIQUE,
+    -- I chose 189 chars because this is the maximum length for a scientific name registered ever
+    scientific_name VARCHAR(189) NOT NULL CHECK(TRIM(scientific_name) != '') UNIQUE
 );
 
 CREATE TABLE area_species (
@@ -29,7 +30,7 @@ CREATE TABLE area_species (
 
 CREATE TABLE project (
     id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
-    name VARCHAR(100) NOT NULL UNIQUE CHECK(TRIM(name) != ''),
+    name VARCHAR(50) NOT NULL UNIQUE CHECK(TRIM(name) != ''),
     budget DECIMAL(15,2) NOT NULL CHECK(budget > 0),
     start_date DATE NOT NULL,
     end_date DATE NOT NULL, 
@@ -40,8 +41,9 @@ CREATE TABLE employee (
     id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
     -- La primer cédula tuvo asignado el número 1
     cedula BIGINT NOT NULL UNIQUE CHECK(cedula > 0),
-    name VARCHAR(150) NOT NULL CHECK(TRIM(name) != ''),
-    address VARCHAR(100) NOT NULL CHECK(TRIM(address) != ''),
+    -- Accordingly to Gemini AI, the longest name registered in Colombia is around 76 characters
+    name VARCHAR(80) NOT NULL CHECK(TRIM(name) != ''),
+    address VARCHAR(150) NOT NULL CHECK(TRIM(address) != ''),
     mobile_phone INT UNSIGNED NOT NULL CHECK(mobile_phone >= 1000000000),
     salary DECIMAL(10,2) NOT NULL CHECK(salary > 0),
     role_type ENUM('Management', 'Vigilance', 'Conservation', 'Research') NOT NULL
@@ -88,7 +90,7 @@ CREATE TABLE project_researcher_species (
 
 CREATE TABLE park (
     id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
-    name VARCHAR(150) NOT NULL UNIQUE CHECK(TRIM(name) != ''),
+    name VARCHAR(100) NOT NULL UNIQUE CHECK(TRIM(name) != ''),
     foundation_date DATE NOT NULL
 );
 
@@ -101,8 +103,9 @@ CREATE TABLE entrance (
 
 CREATE TABLE department (
     id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
-    name VARCHAR(150) NOT NULL UNIQUE CHECK(TRIM(name) != ''),
-    entity VARCHAR(100) NOT NULL CHECK(TRIM(entity) != '')
+    -- Currently the longest department name in Colombia has 16 chars.
+    -- I am adding four more characters just in case.
+    name VARCHAR(20) NOT NULL UNIQUE CHECK(TRIM(name) != ''),
 );
 
 CREATE TABLE department_park (
@@ -121,8 +124,8 @@ CREATE TABLE park_area (
 
 CREATE TABLE vehicle (
     id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
-    type VARCHAR(200) NOT NULL CHECK(TRIM(type) != ''),
-    brand VARCHAR(100) NOT NULL CHECK(TRIM(brand) != '')
+    type VARCHAR(30) NOT NULL CHECK(TRIM(type) != ''),
+    brand VARCHAR(20) NOT NULL CHECK(TRIM(brand) != '')
 );
 
 CREATE TABLE vigilance_area (
@@ -158,17 +161,18 @@ CREATE TABLE visitor (
     id INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
     -- La primer cédula tuvo asignado el número 1
     cedula BIGINT NOT NULL UNIQUE CHECK(cedula > 0),
-    name VARCHAR(150) NOT NULL CHECK(TRIM(name) != ''),
+    -- Accordingly to Gemini AI, the longest name registered in Colombia is around 76 characters
+    name VARCHAR(80) NOT NULL CHECK(TRIM(name) != ''),
     address VARCHAR(150) NOT NULL CHECK(TRIM(address) != ''),
-    job VARCHAR(150) NOT NULL CHECK(TRIM(job) != '')
+    job VARCHAR(60) NOT NULL CHECK(TRIM(job) != '')
 );
 
 CREATE TABLE lodging (
     id INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
     park_id INT UNSIGNED NOT NULL,
-    name VARCHAR(150) NOT NULL CHECK(TRIM(name) != ''),
+    name VARCHAR(50) NOT NULL CHECK(TRIM(name) != ''),
     capacity INT NOT NULL CHECK(capacity > 0),
-    category VARCHAR(100) NOT NULL CHECK(TRIM(category) != ''),
+    category VARCHAR(30) NOT NULL CHECK(TRIM(category) != ''),
     FOREIGN KEY(park_id) REFERENCES park(id) ON DELETE CASCADE
 );
 
@@ -194,7 +198,7 @@ CREATE TABLE visitor_log (
 
 CREATE TABLE responsible_entity (
     id INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    name VARCHAR(150) NOT NULL CHECK(TRIM(name) != '')
+    name VARCHAR(50) NOT NULL CHECK(TRIM(name) != '')
 );
 
 CREATE TABLE department_entity (
