@@ -1,1057 +1,218 @@
--- DEPARTMENT INSERTS
-INSERT INTO
-    department (id, name)
-VALUES
-    (1, 'Antioquia'),
-    (2, 'Chocó'),
-    (3, 'Valle del Cauca'),
-    (4, 'Cundinamarca'),
-    (5, 'Boyacá'),
-    (6, 'Santander'),
-    (7, 'Norte de Santander'),
-    (8, 'Bolívar'),
-    (9, 'Magdalena'),
-    (10, 'Cauca'),
-    (11, 'Nariño'),
-    (12, 'Amazonas'),
-    (13, 'Guainía'),
-    (14, 'Vichada'),
-    (15, 'Meta'),
-    (16, 'Casanare'),
-    (17, 'Córdoba'),
-    (18, 'Sucre'),
-    (19, 'Atlántico'),
-    (20, 'La Guajira'),
-    (21, 'Cesar'),
-    (22, 'Arauca'),
-    (23, 'Guaviare'),
-    (24, 'Caquetá'),
-    (25, 'Putumayo'),
-    (26, 'Huila'),
-    (27, 'Tolima'),
-    (28, 'Caldas'),
-    (29, 'Risaralda'),
-    (30, 'Quindío'),
-    (31, 'San Andrés y Providencia'),
-    (32, 'Vaupés'),
-    (33, 'Bogotá D.C.'),
-    (34, 'Buenaventura'),
-    (35, 'Santa Marta'),
-    (36, 'Cartagena'),
-    (37, 'Barranquilla'),
-    (38, 'Medellín'),
-    (39, 'Cali'),
-    (40, 'Tunja'),
-    (41, 'Manizales'),
-    (42, 'Pasto'),
-    (43, 'Popayán'),
-    (44, 'Ibagué'),
-    (45, 'Bucaramanga'),
-    (46, 'Cúcuta'),
-    (47, 'Villavicencio'),
-    (48, 'Yopal'),
-    (49, 'Montería'),
-    (50, 'Riohacha');
+// Departments and responsible entities
+Table department {
+  id INT PK
+  name VARCHAR
+}
 
--- RESPONSIBLE ENTITY INSERTS
-INSERT INTO
-    responsible_entity (id, name)
-VALUES
-    (1, 'Parques Nacionales Naturales de Colombia'),
-    (
-        2,
-        'Ministerio de Ambiente y Desarrollo Sostenible'
-    ),
-    (
-        3,
-        'Corporación Autónoma Regional del Centro de Antioquia'
-    ),
-    (
-        4,
-        'Corporación Autónoma Regional del Valle del Cauca'
-    ),
-    (
-        5,
-        'Corporación Autónoma Regional de Cundinamarca'
-    ),
-    (6, 'Corporación Autónoma Regional de Boyacá'),
-    (7, 'Corporación Autónoma Regional del Magdalena'),
-    (8, 'Corporación Autónoma Regional del Cauca'),
-    (9, 'Corporación Autónoma Regional del Amazonas'),
-    (
-        10,
-        'Corporación para el Desarrollo Sostenible del Norte y Oriente Amazónico'
-    ),
-    (
-        11,
-        'Corporación para el Desarrollo Sostenible del Sur de la Amazonía'
-    ),
-    (12, 'Secretaría de Medio Ambiente de Antioquia'),
-    (13, 'Secretaría de Ambiente de Bogotá'),
-    (
-        14,
-        'Departamento Administrativo de Gestión del Medio Ambiente de Cali'
-    ),
-    (15, 'Corporación Autónoma Regional de La Guajira'),
-    (16, 'Corporación Autónoma Regional del Cesar'),
-    (17, 'Corporación Autónoma Regional de Santander'),
-    (
-        18,
-        'Corporación Autónoma Regional de Norte de Santander'
-    ),
-    (19, 'Corporación Autónoma Regional de Caldas'),
-    (20, 'Corporación Autónoma Regional de Risaralda'),
-    (21, 'Corporación Autónoma Regional del Quindío'),
-    (
-        22,
-        'Corporación Autónoma Regional del Canal del Dique'
-    ),
-    (23, 'Corporación Autónoma Regional de Sucre'),
-    (
-        24,
-        'Corporación Autónoma Regional de Los Valles del Sinú y San Jorge'
-    ),
-    (25, 'Corporación Autónoma Regional del Atlántico'),
-    (26, 'Corporación Autónoma Regional del Tolima'),
-    (
-        27,
-        'Corporación Autónoma Regional del Alto Magdalena'
-    ),
-    (28, 'Corporación Autónoma Regional de Chivor'),
-    (
-        29,
-        'Corporación Autónoma Regional de la Frontera Nororiental'
-    ),
-    (
-        30,
-        'Corporación Autónoma Regional de la Orinoquía'
-    ),
-    (
-        31,
-        'Corporación para el Desarrollo Sostenible del Archipiélago de San Andrés'
-    ),
-    (
-        32,
-        'Corporación para el Desarrollo Sostenible del Urabá'
-    ),
-    (
-        33,
-        'Corporación para el Desarrollo Sostenible de La Mojana'
-    ),
-    (
-        34,
-        'Secretaría de Ambiente y Desarrollo Sostenible del Meta'
-    ),
-    (
-        35,
-        'Secretaría de Ambiente y Desarrollo Sostenible del Casanare'
-    ),
-    (
-        36,
-        'Instituto Amazónico de Investigaciones Científicas'
-    ),
-    (
-        37,
-        'Instituto de Hidrología, Meteorología y Estudios Ambientales'
-    ),
-    (
-        38,
-        'Instituto de Investigaciones Marinas y Costeras'
-    ),
-    (
-        39,
-        'Instituto de Investigación de Recursos Biológicos Alexander von Humboldt'
-    ),
-    (
-        40,
-        'Dirección Territorial Pacífico de Parques Nacionales Naturales'
-    ),
-    (
-        41,
-        'Dirección Territorial Caribe de Parques Nacionales Naturales'
-    ),
-    (
-        42,
-        'Dirección Territorial Andes Occidentales de Parques Nacionales Naturales'
-    ),
-    (
-        43,
-        'Dirección Territorial Andes Nororientales de Parques Nacionales Naturales'
-    ),
-    (
-        44,
-        'Dirección Territorial Amazonía de Parques Nacionales Naturales'
-    ),
-    (
-        45,
-        'Dirección Territorial Orinoquía de Parques Nacionales Naturales'
-    ),
-    (46, 'Fundación ProAves'),
-    (47, 'Fondo Mundial para la Naturaleza Colombia'),
-    (48, 'The Nature Conservancy Colombia'),
-    (49, 'Conservación Internacional Colombia'),
-    (
-        50,
-        'Asociación Colombiana de Reservas Naturales de la Sociedad Civil'
-    );
+Table responsible_entity {
+  id INT PK
+  name VARCHAR
+}
 
--- DEPARTMENT_ENTITY INSERTS
-INSERT INTO
-    department_entity (department_id, entity_id)
-VALUES
-    (1, 3),
-    (1, 12),
-    (1, 32),
-    (1, 42),
-    (2, 1),
-    (2, 32),
-    (2, 40),
-    (3, 4),
-    (3, 14),
-    (3, 42),
-    (4, 5),
-    (4, 13),
-    (4, 43),
-    (5, 6),
-    (5, 28),
-    (5, 43),
-    (6, 17),
-    (6, 43),
-    (7, 18),
-    (7, 29),
-    (7, 43),
-    (8, 22),
-    (8, 41),
-    (9, 7),
-    (9, 41),
-    (10, 8),
-    (10, 42),
-    (11, 1),
-    (11, 42),
-    (12, 9),
-    (12, 44),
-    (13, 10),
-    (13, 44),
-    (14, 30),
-    (14, 45),
-    (15, 34),
-    (15, 45),
-    (16, 30),
-    (16, 35),
-    (16, 45),
-    (17, 24),
-    (17, 32),
-    (18, 23),
-    (18, 33),
-    (19, 25),
-    (20, 15),
-    (20, 41),
-    (21, 16),
-    (21, 41),
-    (22, 29),
-    (22, 45),
-    (23, 11),
-    (23, 44),
-    (24, 11),
-    (24, 44),
-    (25, 11),
-    (25, 44),
-    (26, 27),
-    (26, 42),
-    (27, 26),
-    (28, 19),
-    (28, 42),
-    (29, 20),
-    (29, 42),
-    (30, 21),
-    (30, 42),
-    (31, 31),
-    (31, 41),
-    (32, 10),
-    (32, 44),
-    (33, 13),
-    (34, 4),
-    (35, 7),
-    (36, 22),
-    (37, 25),
-    (38, 3),
-    (39, 4),
-    (40, 6),
-    (41, 19),
-    (42, 1),
-    (43, 8),
-    (44, 26),
-    (45, 17),
-    (46, 18),
-    (47, 34),
-    (48, 35),
-    (49, 24),
-    (50, 15);
+Table department_entity {
+  department_id INT PK
+  entity_id INT PK
+}
 
--- PARK INSERTS
-INSERT INTO
-    park (id, name, foundation_date)
-VALUES
-    (
-        1,
-        'Parque Nacional Natural Tayrona',
-        '1964-04-24'
-    ),
-    (
-        2,
-        'Parque Nacional Natural Los Nevados',
-        '1973-10-30'
-    ),
-    (
-        3,
-        'Parque Nacional Natural Sierra Nevada de Santa Marta',
-        '1977-05-15'
-    ),
-    (
-        4,
-        'Parque Nacional Natural El Cocuy',
-        '1977-06-22'
-    ),
-    (
-        5,
-        'Parque Nacional Natural Serranía de Chiribiquete',
-        '1989-09-12'
-    ),
-    (
-        6,
-        'Parque Nacional Natural Chingaza',
-        '1977-05-15'
-    ),
-    (
-        7,
-        'Parque Nacional Natural Sumapaz',
-        '1977-06-06'
-    ),
-    (
-        8,
-        'Parque Nacional Natural Los Katíos',
-        '1973-08-07'
-    ),
-    (9, 'Parque Nacional Natural Tatamá', '1987-10-14'),
-    (
-        10,
-        'Parque Nacional Natural Las Hermosas',
-        '1977-12-06'
-    ),
-    (
-        11,
-        'Parque Nacional Natural Farallones de Cali',
-        '1968-07-18'
-    ),
-    (
-        12,
-        'Parque Nacional Natural Puracé',
-        '1961-03-29'
-    ),
-    (
-        13,
-        'Parque Nacional Natural Munchique',
-        '1977-08-25'
-    ),
-    (
-        14,
-        'Parque Nacional Natural Las Orquídeas',
-        '1973-03-24'
-    ),
-    (
-        15,
-        'Parque Nacional Natural Paramillo',
-        '1977-03-16'
-    ),
-    (
-        16,
-        'Parque Nacional Natural Amacayacu',
-        '1975-11-05'
-    ),
-    (
-        17,
-        'Parque Nacional Natural Cahuinarí',
-        '1986-08-19'
-    ),
-    (
-        18,
-        'Parque Nacional Natural La Paya',
-        '1984-05-18'
-    ),
-    (
-        19,
-        'Parque Nacional Natural Isla Gorgona',
-        '1984-12-01'
-    ),
-    (
-        20,
-        'Parque Nacional Natural Tuparro',
-        '1970-07-21'
-    ),
-    (
-        21,
-        'Parque Nacional Natural Sanquianga',
-        '1977-08-18'
-    ),
-    (22, 'Parque Nacional Natural Utría', '1987-08-28'),
-    (23, 'Parque Nacional Natural Pisba', '1977-10-03'),
-    (
-        24,
-        'Parque Nacional Natural Catatumbo Barí',
-        '1989-01-31'
-    ),
-    (
-        25,
-        'Parque Nacional Natural Tinigua',
-        '1989-11-30'
-    ),
-    (
-        26,
-        'Parque Nacional Natural Old Providence McBean Lagoon',
-        '1995-12-14'
-    ),
-    (
-        27,
-        'Parque Nacional Natural Uramba Bahía Málaga',
-        '2010-08-05'
-    ),
-    (
-        28,
-        'Parque Nacional Natural Sierra de la Macarena',
-        '1971-11-05'
-    ),
-    (
-        29,
-        'Parque Nacional Natural Cordillera de los Picachos',
-        '1977-10-15'
-    ),
-    (
-        30,
-        'Parque Nacional Natural Río Puré',
-        '2002-04-10'
-    ),
-    (
-        31,
-        'Parque Nacional Natural Alto Fragua Indi Wasi',
-        '2002-02-25'
-    ),
-    (
-        32,
-        'Parque Nacional Natural Complejo Volcánico Doña Juana',
-        '2007-03-16'
-    ),
-    (
-        33,
-        'Parque Nacional Natural Corales del Rosario y San Bernardo',
-        '1977-08-31'
-    ),
-    (
-        34,
-        'Parque Nacional Natural Los Corales de Profundidad',
-        '2013-07-01'
-    ),
-    (
-        35,
-        'Parque Nacional Natural Acandí Playón y Playona',
-        '2013-10-25'
-    ),
-    (
-        36,
-        'Parque Nacional Natural Bahía Portete-Kaurrele',
-        '2014-12-19'
-    ),
-    (
-        37,
-        'Parque Nacional Natural Cueva de los Guácharos',
-        '1960-11-09'
-    ),
-    (
-        38,
-        'Parque Nacional Natural El Tuparro',
-        '1980-09-05'
-    ),
-    (39, 'Parque Nacional Natural Tamá', '1977-09-23'),
-    (
-        40,
-        'Parque Nacional Natural Las Hermosas-Gloria Valencia de Castaño',
-        '2016-03-18'
-    ),
-    (
-        41,
-        'Parque Nacional Natural Serranía de los Yariguíes',
-        '2005-12-16'
-    ),
-    (
-        42,
-        'Parque Nacional Natural Selva de Florencia',
-        '2005-06-10'
-    ),
-    (
-        43,
-        'Parque Nacional Natural Río Pure',
-        '2002-08-08'
-    ),
-    (
-        44,
-        'Parque Nacional Natural Tayrona Norte',
-        '2020-01-01'
-    ),
-    (
-        45,
-        'Parque Nacional Natural Valle Central',
-        '2018-05-22'
-    ),
-    (
-        46,
-        'Parque Nacional Natural Altos del Casanare',
-        '2019-11-10'
-    ),
-    (
-        47,
-        'Parque Nacional Natural Bahía Portete',
-        '2014-09-23'
-    ),
-    (
-        48,
-        'Parque Nacional Natural Ciénaga Grande',
-        '1977-10-25'
-    ),
-    (
-        49,
-        'Parque Nacional Natural Sierra Central',
-        '2020-04-30'
-    ),
-    (
-        50,
-        'Parque Nacional Natural Bosques del Sur',
-        '2021-07-12'
-    );
+// Parks and areas
+Table park {
+  id INT PK
+  name VARCHAR
+  foundation_date DATE
+}
 
--- DEPARTMENT_PARK INSERTS
-INSERT INTO
-    department_park (department_id, park_id)
-VALUES
-    (9, 1),
-    (28, 2),
-    (29, 2),
-    (30, 2),
-    (9, 3),
-    (20, 3),
-    (5, 4),
-    (7, 4),
-    (12, 5),
-    (23, 5),
-    (24, 5),
-    (4, 6),
-    (4, 7),
-    (33, 7),
-    (2, 8),
-    (17, 8),
-    (3, 9),
-    (29, 9),
-    (3, 10),
-    (26, 10),
-    (27, 10),
-    (3, 11),
-    (10, 12),
-    (26, 12),
-    (10, 13),
-    (1, 14),
-    (1, 15),
-    (17, 15),
-    (12, 16),
-    (12, 17),
-    (25, 18),
-    (10, 19),
-    (14, 20),
-    (11, 21),
-    (2, 22),
-    (5, 23),
-    (7, 24),
-    (15, 25),
-    (31, 26),
-    (3, 27),
-    (15, 28),
-    (24, 29),
-    (12, 30),
-    (24, 31),
-    (11, 32),
-    (8, 33),
-    (8, 34),
-    (2, 35),
-    (20, 36),
-    (26, 37),
-    (14, 38),
-    (7, 39),
-    (3, 40),
-    (27, 40),
-    (6, 41),
-    (28, 42),
-    (12, 43),
-    (9, 44),
-    (20, 44),
-    (15, 45),
-    (28, 45),
-    (16, 46),
-    (20, 47),
-    (9, 48),
-    (19, 48),
-    (1, 49),
-    (17, 49),
-    (26, 50),
-    (27, 50);
+Table department_park {
+  department_id INT PK
+  park_id INT PK
+}
 
--- AREA INSERTS
-INSERT INTO
-    area (id, name, extent)
-VALUES
-    (1, 'Zona de Manglares', 1250.75),
-    (2, 'Sendero de los Páramos', 3420.25),
-    (3, 'Bosque de Niebla', 1870.50),
-    (4, 'Valle de las Orquídeas', 980.25),
-    (5, 'Cascada del Águila', 540.75),
-    (6, 'Laguna Azul', 1120.50),
-    (7, 'Mirador del Cóndor', 350.25),
-    (8, 'Reserva de Aves', 2430.75),
-    (9, 'Sendero del Oso', 1760.25),
-    (10, 'Bosque Húmedo Tropical', 5230.50),
-    (11, 'Arrecife de Coral', 3450.75),
-    (12, 'Zona Arqueológica', 870.25),
-    (13, 'Cueva de los Murciélagos', 320.50),
-    (14, 'Humedal Central', 1980.75),
-    (15, 'Quebrada Los Cristales', 480.25),
-    (16, 'Playa Tortuga', 1650.50),
-    (17, 'Salto del Tequendama', 750.75),
-    (18, 'Sierra Nevada', 6540.25),
-    (19, 'Valle del Río Claro', 2340.50),
-    (20, 'Laguna de los Cisnes', 890.75),
-    (21, 'Bosque Seco Tropical', 3210.25),
-    (22, 'Isla de las Aves', 540.50),
-    (23, 'Páramo de las Papas', 4320.75),
-    (24, 'Cañón del Río Patía', 2980.25),
-    (25, 'Cueva de los Guácharos', 410.50),
-    (26, 'Cascada La Sirena', 690.75),
-    (27, 'Valle de las Brumas', 1540.25),
-    (28, 'Mirador del Valle', 320.50),
-    (29, 'Ruta de los Venados', 1870.75),
-    (30, 'Sendero Ecológico', 980.25),
-    (31, 'Bosque de Guaduas', 1450.50),
-    (32, 'Lagunas Glaciares', 2670.75),
-    (33, 'Jardín de Bromelias', 430.25),
-    (34, 'Desembocadura del Río', 2150.50),
-    (35, 'Zona de Petroglifos', 780.75),
-    (36, 'Sendero de los Monos', 1230.25),
-    (37, 'Cascada El Salto', 560.50),
-    (38, 'Mirador del Cañón', 310.75),
-    (39, 'Bosque de Palmas', 1980.25),
-    (40, 'Playa Escondida', 870.50),
-    (41, 'Zona de Géiseres', 430.75),
-    (42, 'Bosque Petrificado', 650.25),
-    (43, 'Cuevas de Sal', 390.50),
-    (44, 'Estero Marino', 2150.75),
-    (45, 'Zona Árida Protegida', 1280.25),
-    (46, 'Ciénaga Grande', 3540.50),
-    (47, 'Sendero de las Mariposas', 750.75),
-    (48, 'Reserva de Primates', 1320.25),
-    (49, 'Valle de Frailejones', 2890.50),
-    (50, 'Ruta del Tapir', 1670.75),
-    (51, 'Bosque de Robles', 2140.25),
-    (52, 'Laguna Negra', 960.50),
-    (53, 'Zona de Reproducción de Aves', 1450.75),
-    (54, 'Cascada de los Siete Velos', 580.25),
-    (55, 'Valle de los Venados', 1930.50),
-    (56, 'Canales de Manglares', 2750.75),
-    (57, 'Mirador del Nevado', 420.25),
-    (58, 'Bosque de Aliso', 1680.50),
-    (59, 'Ruta del Jaguar', 2340.75),
-    (60, 'Laguna de los Patos', 1120.25);
+Table area {
+  id INT PK
+  name VARCHAR
+  extent FLOAT
+}
 
--- PARK_AREA INSERTS
-INSERT INTO
-    park_area (park_id, area_id)
-VALUES
-    (1, 1),
-    (1, 16),
-    (1, 40),
-    (2, 2),
-    (2, 32),
-    (2, 57),
-    (3, 18),
-    (3, 29),
-    (3, 49),
-    (4, 23),
-    (4, 32),
-    (4, 49),
-    (5, 10),
-    (5, 36),
-    (5, 48),
-    (6, 2),
-    (6, 7),
-    (6, 49),
-    (7, 2),
-    (7, 23),
-    (7, 49),
-    (8, 1),
-    (8, 10),
-    (8, 56),
-    (9, 3),
-    (9, 27),
-    (9, 33),
-    (10, 7),
-    (10, 38),
-    (10, 55),
-    (11, 3),
-    (11, 10),
-    (11, 39),
-    (12, 23),
-    (12, 41),
-    (12, 42),
-    (13, 3),
-    (13, 9),
-    (13, 31),
-    (14, 4),
-    (14, 33),
-    (14, 47),
-    (15, 9),
-    (15, 50),
-    (15, 59),
-    (16, 10),
-    (16, 36),
-    (16, 48),
-    (17, 10),
-    (17, 44),
-    (17, 56),
-    (18, 10),
-    (18, 19),
-    (18, 36),
-    (19, 11),
-    (19, 22),
-    (19, 44),
-    (20, 14),
-    (20, 45),
-    (20, 46),
-    (21, 1),
-    (21, 44),
-    (21, 56),
-    (22, 1),
-    (22, 10),
-    (22, 11),
-    (23, 2),
-    (23, 23),
-    (23, 49),
-    (24, 3),
-    (24, 10),
-    (24, 39),
-    (25, 9),
-    (25, 19),
-    (25, 50),
-    (26, 11),
-    (26, 22),
-    (26, 53),
-    (27, 1),
-    (27, 11),
-    (27, 44),
-    (28, 9),
-    (28, 19),
-    (28, 59),
-    (29, 9),
-    (29, 10),
-    (29, 36),
-    (30, 10),
-    (30, 48),
-    (30, 50),
-    (31, 10),
-    (31, 25),
-    (31, 36),
-    (32, 23),
-    (32, 41),
-    (32, 42),
-    (33, 11),
-    (33, 22),
-    (33, 44),
-    (34, 11),
-    (34, 22),
-    (34, 44),
-    (35, 1),
-    (35, 16),
-    (35, 40),
-    (36, 1),
-    (36, 16),
-    (36, 40),
-    (37, 13),
-    (37, 25),
-    (37, 43),
-    (38, 14),
-    (38, 45),
-    (38, 46),
-    (39, 3),
-    (39, 9),
-    (39, 58),
-    (40, 7),
-    (40, 38),
-    (40, 55),
-    (41, 3),
-    (41, 51),
-    (41, 58),
-    (42, 3),
-    (42, 33),
-    (42, 51),
-    (43, 10),
-    (43, 36),
-    (43, 48),
-    (44, 16),
-    (44, 40),
-    (44, 53),
-    (45, 15),
-    (45, 19),
-    (45, 20),
-    (46, 14),
-    (46, 46),
-    (46, 60),
-    (47, 1),
-    (47, 16),
-    (47, 40),
-    (48, 14),
-    (48, 46),
-    (48, 60),
-    (49, 9),
-    (49, 50),
-    (49, 59),
-    (50, 3),
-    (50, 27),
-    (50, 31);
+Table park_area {
+  park_id INT PK
+  area_id INT PK
+}
 
--- SPECIES INSERTS
-INSERT INTO
-    species (id, type, common_name, scientific_name)
-VALUES
-    (1, 'animal', 'Jaguar', 'Panthera onca'),
-    (
-        2,
-        'animal',
-        'Oso de anteojos',
-        'Tremarctos ornatus'
-    ),
-    (3, 'animal', 'Cóndor andino', 'Vultur gryphus'),
-    (4, 'animal', 'Danta', 'Tapirus terrestris'),
-    (5, 'animal', 'Águila harpía', 'Harpia harpyja'),
-    (
-        6,
-        'animal',
-        'Mono aullador',
-        'Alouatta seniculus'
-    ),
-    (
-        7,
-        'animal',
-        'Tortuga carey',
-        'Eretmochelys imbricata'
-    ),
-    (
-        8,
-        'animal',
-        'Cocodrilo del Orinoco',
-        'Crocodylus intermedius'
-    ),
-    (
-        9,
-        'animal',
-        'Manatí del Caribe',
-        'Trichechus manatus'
-    ),
-    (
-        10,
-        'animal',
-        'Venado cola blanca',
-        'Odocoileus virginianus'
-    ),
-    (11, 'animal', 'Tigrillo', 'Leopardus tigrinus'),
-    (
-        12,
-        'animal',
-        'Rana dorada',
-        'Phyllobates terribilis'
-    ),
-    (
-        13,
-        'animal',
-        'Nutria gigante',
-        'Pteronura brasiliensis'
-    ),
-    (14, 'animal', 'Puma', 'Puma concolor'),
-    (15, 'animal', 'Guacamaya roja', 'Ara macao'),
-    (
-        16,
-        'animal',
-        'Colibrí esmeralda',
-        'Chlorostilbon melanorhynchus'
-    ),
-    (
-        17,
-        'animal',
-        'Rana de cristal',
-        'Hyalinobatrachium fleischmanni'
-    ),
-    (
-        18,
-        'animal',
-        'Perezoso de tres dedos',
-        'Bradypus variegatus'
-    ),
-    (19, 'animal', 'Delfín rosado', 'Inia geoffrensis'),
-    (
-        20,
-        'animal',
-        'Armadillo gigante',
-        'Priodontes maximus'
-    ),
-    (
-        21,
-        'vegetable',
-        'Frailejón',
-        'Espeletia grandiflora'
-    ),
-    (
-        22,
-        'vegetable',
-        'Orquídea cattleya',
-        'Cattleya trianae'
-    ),
-    (
-        23,
-        'vegetable',
-        'Palma de cera',
-        'Ceroxylon quindiuense'
-    ),
-    (
-        24,
-        'vegetable',
-        'Roble andino',
-        'Quercus humboldtii'
-    ),
-    (
-        25,
-        'vegetable',
-        'Mangle rojo',
-        'Rhizophora mangle'
-    ),
-    (
-        26,
-        'vegetable',
-        'Árbol de caucho',
-        'Hevea brasiliensis'
-    ),
-    (27, 'vegetable', 'Ceiba', 'Ceiba pentandra'),
-    (
-        28,
-        'vegetable',
-        'Bromelias',
-        'Tillandsia usneoides'
-    ),
-    (29, 'vegetable', 'Guadua', 'Guadua angustifolia'),
-    (30, 'vegetable', 'Heliconia', 'Heliconia bihai'),
-    (
-        31,
-        'vegetable',
-        'Victoria amazónica',
-        'Victoria amazonica'
-    ),
-    (
-        32,
-        'vegetable',
-        'Árbol de tagua',
-        'Phytelephas macrocarpa'
-    ),
-    (
-        33,
-        'vegetable',
-        'Algarrobo',
-        'Hymenaea courbaril'
-    ),
-    (34, 'vegetable', 'Nogal', 'Juglans neotropica'),
-    (35, 'vegetable', 'Abarco', 'Cariniana pyriformis'),
-    (36, 'vegetable', 'Cedro', 'Cedrela odorata'),
-    (
-        37,
-        'vegetable',
-        'Chaquiro',
-        'Podocarpus oleifolius'
-    ),
-    (
-        38,
-        'vegetable',
-        'Anturio negro',
-        'Anthurium crystallinum'
-    ),
-    (39, 'vegetable', 'Yarumo', 'Cecropia peltata'),
-    (
-        40,
-        'vegetable',
-        'Guayacán',
-        'Tabebuia chrysantha'
-    ),
-    (41, 'mineral', 'Cuarzo rosa', 'Sílice'),
-    (42, 'mineral', 'Esmeralda', 'Berilo'),
-    (43, 'mineral', 'Calcita', 'Carbonato de calcio'),
-    (44, 'mineral', 'Pirita', 'Sulfuro de hierro'),
-    (45, 'mineral', 'Amatista', 'Cuarzo violeta'),
-    (
-        46,
-        'mineral',
-        'Mármol',
-        'Carbonato de calcio metamórfico'
-    ),
-    (
-        47,
-        'mineral',
-        'Carbón',
-        'Carbono orgánico sedimentario'
-    ),
-    (
-        48,
-        'mineral',
-        'Arcilla roja',
-        'Silicato de aluminio hidratado'
-    ),
-    (49, 'mineral', 'Sal gema', 'Cloruro de sodio'),
-    (50, 'mineral', 'Ágata', 'Calcedonia'),
-    (
-        51,
-        'animal',
-        'Pez dorado',
-        'Brachyplatystoma rousseauxii'
-    ),
-    (52, 'animal', 'Tucán', 'Ramphastos swainsonii'),
-    (
-        53,
-        'animal',
-        'Guacharos',
-        'Steatornis caripensis'
-    ),
-    (54, 'animal', 'Pato cuchara', 'Spatula clypeata'),
-    (
-        55,
-        'animal',
-        'Boa constrictor',
-        'Boa constrictor'
-    ),
-    (56, 'vegetable', 'Bambú', 'Bambusa vulgaris'),
-    (
-        57,
-        'vegetable',
-        'Lirio acuático',
-        'Nymphaea alba'
-    ),
-    (58, 'vegetable', 'Caimo', 'Pouteria caimito'),
-    (
-        59,
-        'vegetable',
-        'Cacao silvestre',
-        'Theobroma cacao'
-    ),
-    (
-        60,
-        'mineral',
-        'Hierro nativo',
-        'Hierro elemental'
-    );
+// Species management
+Table species {
+  id INT PK
+  type ENUM [note: 'vegetable, animal, mineral']
+  common_name VARCHAR
+  scientific_name VARCHAR
+}
+
+Table area_species {
+  area_id INT PK
+  species_id INT PK
+  population INT
+}
+
+// Personnel base info
+Table employee {
+  id INT PK
+  cedula INT UNIQUE
+  name VARCHAR
+  address VARCHAR
+  phone VARCHAR
+  mobile_phone VARCHAR
+  salary DECIMAL
+  role_type ENUM [note: '001-management, 002-vigilance, 003-conservation, 004-researcher']
+}
+
+// Personnel specialization tables
+Table management_staff {
+  employee_id INT PK
+}
+
+Table vigilance_staff {
+  employee_id INT PK
+}
+
+Table conservation_staff {
+  employee_id INT PK
+  specialty VARCHAR [note: 'cleaning, path maintenance, etc.']
+}
+
+Table research_staff {
+  employee_id INT PK
+}
+
+// Management staff activities
+Table entrance {
+  id INT PK
+  park_id INT
+  entrance_number INT
+}
+
+Table entrance_shift {
+  id INT PK
+  employee_id INT
+  entrance_id INT
+  begin TIMESTAMP
+  end TIMESTAMP
+}
+
+// Vigilance staff equipment
+Table vehicle {
+  id INT PK
+  type VARCHAR
+  brand VARCHAR
+}
+
+Table vigilance_area {
+  vigilance_id INT PK
+  area_id INT PK
+  vehicle_id INT
+}
+
+// Conservation staff assignments
+Table conservation_area {
+  conservation_id INT PK
+  area_id INT PK
+}
+
+// Research projects
+Table project {
+  id INT PK
+  name VARCHAR
+  budget DECIMAL
+  start_date DATE
+  end_date DATE
+}
+
+Table project_researcher {
+  project_id INT PK
+  researcher_id INT PK
+}
+
+Table project_researcher_species {
+  project_id INT PK
+  researcher_id INT PK
+  species_id INT PK
+}
+
+// Visitors
+Table visitor {
+  id INT PK
+  cedula INT UNIQUE
+  name VARCHAR
+  address VARCHAR
+  job VARCHAR
+}
+
+// Visit tracking
+Table visit_log {
+  id INT PK
+  entrance_shift_id INT
+  visit_time TIMESTAMP
+  visitor_id INT
+}
+
+// Lodging
+Table lodging {
+  id INT PK
+  park_id INT
+  name VARCHAR
+  capacity INT
+  category VARCHAR
+}
+
+Table visitor_stay {
+  id INT PK
+  visitor_id INT
+  lodging_id INT
+  check_in DATE
+  check_out DATE
+}
+
+INSERT INTO deparment (id, name) VALUES (1, 'Antioquia');
+INSERT INTO responsible_entity (id, name) VALUES (1, 'Parques Nacionales Naturales de Colombia');
+INSERT INTO department_entity (department_id, entity_id) VALUES
+(1, 3);
+INSERT INTO park (id, name, foundation_date) VALUES 
+(1, 'Parque Nacional Natural Tayrona', '1964-04-24');
+INSERT INTO department_park (department_id, park_id) VALUES
+(9, 1);
+INSERT INTO area (id, name, extent) VALUES
+(1, 'Zona de Manglares', 1250.75);
+INSERT INTO park_area (park_id, area_id) VALUES
+(1, 16);
+INSERT INTO species (id, type, common_name, scientific_name) VALUES
+(1, 'animal', 'Jaguar', 'Panthera onca');
+INSERT INTO area_species (area_id, species_id, population) VALUES
+-- Area 1: Zona de Manglares (Mangrove Zone)
+(1, 25, 15000), -- Mangle rojo (red mangrove),
+-- Area 2: Sendero de los Páramos (Paramo Trail)
+(2, 21, 12500), -- Frailejón (frailejon plant);
+
+
+
+
+
+
+
+
+Missing Tables: 
+
+
+project 
+project_researcher_species
+project_researcher
+vigilance_area
+vigilance_staff
+managment_staff
+conservation_staff
+research_staff
+employee
+vehicle
+conservation_area
+visit_log
+lodging
+visitor
+visitor_stay
+entrance
+entrance_shift
