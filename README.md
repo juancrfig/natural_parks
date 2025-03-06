@@ -145,7 +145,7 @@ GRANT SELECT ON natural_parks.project TO 'auditor'@'localhost';
 ## Repository Structure Summary
 
 ```bash
-sql_project/  
+natural_parks/  
 ├── DDL/  
 │   └── ddl.sql                 # Table and relationship creation  
 ├── DML/  
@@ -170,4 +170,4 @@ sql_project/
 ## License and Contact
 
 **License**: MIT.\
-**Contact**: [juancrfig@gmail.com](mailto\:juancrfig@gmail.com) | [Submit an issue on GitHub](https://github.com/juancrfig/sql_project/issues).
+**Contact**: [juancrfig@gmail.com](mailto\:juancrfig@gmail.com) | [Submit an issue on GitHub](https://github.com/juancrfig/natural_parks/issues).
