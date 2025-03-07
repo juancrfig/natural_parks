@@ -2,56 +2,57 @@
 INSERT INTO
     department (id, name)
 VALUES
-    (1, 'Antioquia'),
-    (2, 'Chocó'),
-    (3, 'Valle del Cauca'),
-    (4, 'Cundinamarca'),
-    (5, 'Boyacá'),
-    (6, 'Santander'),
-    (7, 'Norte de Santander'),
-    (8, 'Bolívar'),
-    (9, 'Magdalena'),
+    (1, 'Amazonas'),
+    (2, 'Antioquia'),
+    (3, 'Arauca'),
+    (4, 'Atlántico'),
+    (5, 'Bolívar'),
+    (6, 'Boyacá'),
+    (7, 'Caldas'),
+    (8, 'Caquetá'),
+    (9, 'Casanare'),
     (10, 'Cauca'),
-    (11, 'Nariño'),
-    (12, 'Amazonas'),
-    (13, 'Guainía'),
-    (14, 'Vichada'),
-    (15, 'Meta'),
-    (16, 'Casanare'),
-    (17, 'Córdoba'),
-    (18, 'Sucre'),
-    (19, 'Atlántico'),
-    (20, 'La Guajira'),
-    (21, 'Cesar'),
-    (22, 'Arauca'),
-    (23, 'Guaviare'),
-    (24, 'Caquetá'),
-    (25, 'Putumayo'),
-    (26, 'Huila'),
-    (27, 'Tolima'),
-    (28, 'Caldas'),
-    (29, 'Risaralda'),
-    (30, 'Quindío'),
-    (31, 'San Andrés y Providencia'),
-    (32, 'Vaupés'),
-    (33, 'Bogotá D.C.'),
-    (34, 'Buenaventura'),
-    (35, 'Santa Marta'),
-    (36, 'Cartagena'),
-    (37, 'Barranquilla'),
-    (38, 'Medellín'),
-    (39, 'Cali'),
-    (40, 'Tunja'),
-    (41, 'Manizales'),
-    (42, 'Pasto'),
-    (43, 'Popayán'),
-    (44, 'Ibagué'),
-    (45, 'Bucaramanga'),
-    (46, 'Cúcuta'),
-    (47, 'Villavicencio'),
-    (48, 'Yopal'),
-    (49, 'Montería'),
-    (50, 'Riohacha');
+    (11, 'Cesar'),
+    (12, 'Chocó'),
+    (13, 'Córdoba'),
+    (14, 'Cundinamarca'),
+    (15, 'Guainía'),
+    (16, 'Guaviare'),
+    (17, 'Huila'),
+    (18, 'La Guajira'),
+    (19, 'Magdalena'),
+    (20, 'Meta'),
+    (21, 'Nariño'),
+    (22, 'Norte de Santander'),
+    (23, 'Putumayo'),
+    (24, 'Quindío'),
+    (25, 'Risaralda'),
+    (26, 'San Andrés y Providencia'),
+    (27, 'Santander'),
+    (28, 'Sucre'),
+    (29, 'Tolima'),
+    (30, 'Valle del Cauca'),
+    (31, 'Vaupés'),
+    (32, 'Vichada'),
+    -- New departments after territorial expansion --
+    (33, 'Zulia'),                -- Former Venezuelan state
+    (34, 'Gran Panamá'),           -- Panama incorporation
+    (35, 'Pichincha'),             -- Ecuadorian province
+    (36, 'Guayana Esequiba'),      -- Disputed Venezuelan territory
+    (37, 'Galápagos'),             -- Ecuadorian province
+    (38, 'Darién Oriental'),       -- Expanded Panamanian region
+    (39, 'Caracas Capital'),       -- Venezuelan capital region
+    (40, 'Guayas'),                -- Ecuadorian province
+    (41, 'Los Andes'),             -- Venezuelan/Andean region
+    (42, 'Archipiélago de Perlas'),-- Panamanian islands
+    (43, 'Orinoquía'),             -- Expanded Venezuelan plains
+    (44, 'Manaos'),                -- Brazilian border region claim
+    (45, 'Sucumbíos'),             -- Ecuadorian province
+    (46, 'Táchira'),               -- Venezuelan state
+    (47, 'Azuay'),                 -- Ecuadorian province
+    (48, 'Canal Atlántico'),       -- Panamanian Caribbean coast
+    (49, 'Margarita'),             -- Venezuelan island
+    (50, 'Nueva Loja');            -- Ecuadorian oil region
 
 -- RESPONSIBLE ENTITY INSERTS
 INSERT INTO
