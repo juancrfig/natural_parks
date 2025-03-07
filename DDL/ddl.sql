@@ -15,9 +15,9 @@ CREATE TABLE area (
 CREATE TABLE species (
     id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
     type ENUM('vegetable', 'animal', 'mineral') NOT NULL,
-    common_name VARCHAR(50) NOT NULL CHECK(TRIM(common_name) != '') UNIQUE,
+    common_name VARCHAR(50) UNIQUE NOT NULL CHECK(TRIM(common_name) != ''),
     -- I chose 189 chars because this is the maximum length for a scientific name registered ever
-    scientific_name VARCHAR(189) NOT NULL CHECK(TRIM(scientific_name) != '') UNIQUE
+    scientific_name VARCHAR(189) UNIQUE NOT NULL CHECK(TRIM(scientific_name) != '')
 );
 
 CREATE TABLE area_species (
@@ -61,7 +61,7 @@ CREATE TABLE management_staff (
 
 CREATE TABLE conservation_staff (
     employee_id INT UNSIGNED PRIMARY KEY NOT NULL,
-    specialty VARCHAR(200) NOT NULL CHECK(TRIM(specialty) != ''),
+    specialty ENUM('Cleaning', 'Maintenance of Roads') NOT NULL,
     FOREIGN KEY(employee_id) REFERENCES employee(id) ON DELETE CASCADE    
 );
 
@@ -137,7 +137,7 @@ CREATE TABLE vigilance_area (
     PRIMARY KEY(vigilance_id, area_id),
     FOREIGN KEY(vigilance_id) REFERENCES vigilance_staff(employee_id) ON DELETE CASCADE,
     FOREIGN KEY(area_id) REFERENCES area(id) ON DELETE CASCADE,
-    FOREIGN KEY(vigilance_id) REFERENCES vehicle(id) ON DELETE CASCADE
+    FOREIGN KEY(vehicle_id) REFERENCES vehicle(id) ON DELETE CASCADE
 );
 
 CREATE TABLE conservation_area (
