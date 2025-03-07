@@ -30,7 +30,7 @@ CREATE TABLE area_species (
 
 CREATE TABLE project (
     id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
-    name VARCHAR(50) NOT NULL UNIQUE CHECK(TRIM(name) != ''),
+    name VARCHAR(100) NOT NULL UNIQUE CHECK(TRIM(name) != ''),
     budget DECIMAL(15,2) NOT NULL CHECK(budget > 0),
     start_date DATE NOT NULL,
     end_date DATE NOT NULL, 
@@ -103,9 +103,9 @@ CREATE TABLE entrance (
 
 CREATE TABLE department (
     id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
-    -- Currently the longest department name in Colombia has 16 chars.
+    -- Currently the longest department name in Colombia has 21 chars.
     -- I am adding four more characters just in case.
-    name VARCHAR(20) NOT NULL UNIQUE CHECK(TRIM(name) != ''),
+    name VARCHAR(25) NOT NULL UNIQUE CHECK(TRIM(name) != '')
 );
 
 CREATE TABLE department_park (
@@ -117,9 +117,11 @@ CREATE TABLE department_park (
 );
 
 CREATE TABLE park_area (
-    id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
-    name VARCHAR(100) NOT NULL UNIQUE CHECK(TRIM(name) != ''),
-    extent FLOAT NOT NULL CHECK(extent > 0)
+    park_id INT UNSIGNED NOT NULL,
+    area_id INT UNSIGNED NOT NULL,
+    PRIMARY KEY(park_id, area_id),
+    FOREIGN KEY(park_id) REFERENCES park(id) ON DELETE CASCADE,
+    FOREIGN KEY(area_id) REFERENCES area(id) ON DELETE CASCADE
 );
 
 CREATE TABLE vehicle (
@@ -152,7 +154,7 @@ CREATE TABLE entrance_shift (
     entrance_id INT UNSIGNED NOT NULL,
     begin DATETIME NOT NULL,
     end DATETIME NOT NULL,
-    CHECK (end < begin),
+    CHECK (end > begin),
     FOREIGN KEY(employee_id) REFERENCES employee(id),
     FOREIGN KEY(entrance_id) REFERENCES entrance(id)
 );
@@ -198,7 +200,7 @@ CREATE TABLE visitor_log (
 
 CREATE TABLE responsible_entity (
     id INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    name VARCHAR(50) NOT NULL CHECK(TRIM(name) != '')
+    name VARCHAR(100) NOT NULL CHECK(TRIM(name) != '')
 );
 
 CREATE TABLE department_entity (
