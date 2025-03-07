@@ -210,3 +210,51 @@ CREATE TABLE department_entity (
     FOREIGN KEY(department_id) REFERENCES department(id) ON DELETE CASCADE,
     FOREIGN KEY(entity_id) REFERENCES responsible_entity(id) ON DELETE CASCADE
 );
+
+
+-- Creation of specific users
+DROP USER IF EXISTS 'admin'@'localhost';
+CREATE USER 'admin'@'localhost' IDENTIFIED BY '*adPa123*';
+DROP USER IF EXISTS 'park_manager'@'localhost';
+CREATE USER 'park_manager'@'localhost' IDENTIFIED BY '*maPa123*';
+DROP USER IF EXISTS 'researcher'@'localhost';
+CREATE USER 'researcher'@'localhost' IDENTIFIED BY '*rePa123*';
+DROP USER IF EXISTS 'auditor'@'localhost'; 
+CREATE USER 'auditor'@'localhost' IDENTIFIED BY '*auPa123*';
+DROP USER IF EXISTS 'visitor_manager'@'localhost';
+CREATE USER 'visitor_manager'@'localhost' IDENTIFIED BY '*viPa123*';
+
+-- Grant privileges to admin
+
+GRANT ALL PRIVILEGES ON natural_parks.* TO 'admin'@'localhost';
+
+-- Grant privileges to park_manager
+
+GRANT ALTER, INSERT, SELECT, UPDATE, DELETE ON natural_parks.area TO 'park_manager'@'localhost';
+GRANT ALTER, INSERT, SELECT, UPDATE, DELETE ON natural_parks.area_species TO 'park_manager'@'localhost';
+GRANT ALTER, INSERT, SELECT, UPDATE, DELETE ON natural_parks.park TO 'park_manager'@'localhost';
+GRANT ALTER, INSERT, SELECT, UPDATE, DELETE ON natural_parks.park_area TO 'park_manager'@'localhost';
+GRANT ALTER, INSERT, SELECT, UPDATE, DELETE ON natural_parks.species TO 'park_manager'@'localhost';
+
+-- Grant privileges to researcher
+GRANT SELECT ON natural_parks.area TO 'researcher'@'localhost';
+GRANT SELECT ON natural_parks.park TO 'researcher'@'localhost';
+GRANT SELECT ON natural_parks.species TO 'researcher'@'localhost';
+GRANT SELECT ON natural_parks.area_species TO 'researcher'@'localhost';
+GRANT SELECT ON natural_parks.department TO 'researcher'@'localhost';
+GRANT SELECT ON natural_parks.department_park TO 'researcher'@'localhost';
+GRANT SELECT ON natural_parks.park_area TO 'researcher'@'localhost';
+GRANT SELECT ON natural_parks.project TO 'researcher'@'localhost';
+
+-- Grant privileges to auditor
+GRANT SELECT ON natural_parks.employee TO 'auditor'@'localhost';
+GRANT SELECT ON natural_parks.project TO 'auditor'@'localhost';
+
+-- Grant privileges to visitor_manager
+GRANT ALTER, INSERT, SELECT, UPDATE, DELETE ON natural_parks.lodging TO 'visitor_manager'@'localhost';
+GRANT ALTER, INSERT, SELECT, UPDATE, DELETE ON natural_parks.entrance TO 'visitor_manager'@'localhost';
+GRANT ALTER, INSERT, SELECT, UPDATE, DELETE ON natural_parks.entrance_shift TO 'visitor_manager'@'localhost';
+GRANT ALTER, INSERT, SELECT, UPDATE, DELETE ON natural_parks.visitor TO 'visitor_manager'@'localhost';
+GRANT ALTER, INSERT, SELECT, UPDATE, DELETE ON natural_parks.visitor_log TO 'visitor_manager'@'localhost';
+GRANT ALTER, INSERT, SELECT, UPDATE, DELETE ON natural_parks.visitor_stay TO 'visitor_manager'@'localhost';
+
