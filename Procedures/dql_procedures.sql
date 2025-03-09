@@ -43,4 +43,132 @@ BEGIN
         INSERT INTO park(name, foundation_date)
         VALUES (park_name, park_foundation_date);
     END IF;
+END//
+
+
+-- 2. Add a new visitor manually
+
+CREATE PROCEDURE LogVisitor(
+    IN v_vistor_cedula BIGINT,
+    IN v_visitor_name TEXT,
+    IN v_visitor_address TEXT,
+    IN v_visitor_job TEXT
+)
+BEGIN 
+    DECLARE err_code INT;
+    DECLARE err_msg TEXT;
+    DECLARE msg TEXT;
+
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION
+    BEGIN
+        GET DIAGNOSTICS CONDITION 1 err_code = MYSQL_ERRNO,
+        err_msg = MESSAGE_TEXT;
+        SET msg = CONCAT('Error code ', err_code, ': ', err_msg);
+        SIGNAL SQLSTATE '45000'
+            SET MESSAGE_TEXT = msg;
+    END;
+
+    IF EXISTS (
+        SELECT 1 FROM visitor
+        WHERE cedula = v_vistor_cedula 
+    ) THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'This cedula is already registered';
+    ELSE
+        INSERT INTO visitor(cedula, name, address, job)
+        VALUES
+        (v_vistor_cedula, v_visitor_name, v_visitor_address, v_visitor_job);
+    END IF;
+END//
+
+
+-- 3. Update a project’s budget
+
+CREATE PROCEDURE UpdateProjectBudget(
+    IN v_project_id INT,
+    IN v_new_budget DECIMAL(15, 2)
+)
+BEGIN
+    DECLARE v_err_code INT;
+    DECLARE v_err_msg TEXT;
+    DECLARE msg TEXT;
+
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION
+    BEGIN
+        GET DIAGNOSTICS CONDITION 1
+        v_err_code = MYSQL_ERRNO,
+        v_err_msg = MESSAGE_TEXT;
+        SET msg = CONCAT('Error code ', v_err_code, ': ', v_err_msg);
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = msg;
+    END; 
+
+    IF NOT EXISTS (
+        SELECT 1 FROM project
+        WHERE id = v_project_id
+    ) THEN 
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'There is no project with such ID';
+    ELSE
+        UPDATE project SET budget = v_new_budget
+        WHERE id = v_project_id;
+    END IF;
+END//
+
+
+-- 4. Assign next turn available in an entrance for an employee
+
+CREATE PROCEDURE AssignEntranceShift(
+    IN v_employee_id INT,
+    IN v_entrance_id INT
+)
+BEGIN
+    DECLARE v_err_code INT;
+    DECLARE v_err_msg TEXT;
+    DECLARE msg TEXT;
+    DECLARE datetime_last_shift DATETIME;
+    DECLARE v_begin DATETIME;
+    DECLARE v_end DATETIME;
+
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION
+    BEGIN
+        GET DIAGNOSTICS CONDITION 1
+            v_err_code = MYSQL_ERRNO,
+            v_err_msg = MESSAGE_TEXT;
+        SET msg = CONCAT('Error code ', v_err_code, ': ', v_err_msg);
+        SIGNAL SQLSTATE '45000'
+            SET MESSAGE_TEXT = msg;
+    END;
+
+    SELECT e.end INTO datetime_last_shift
+    FROM entrance_shift AS e
+    WHERE entrance_id = v_entrance_id
+    ORDER BY e.end DESC LIMIT 1;
+
+    SET v_begin = DATETIME(DATE_ADD(DATE(datetime_last_shift), INTERVAL 1 DAY), '08:00:00');
+
+    SET v_end = DATETIME(DATE(v_begin), '16:00:00');
+
+    IF NOT EXISTS (
+        SELECT 1 FROM entrance 
+        WHERE id = v_entrance_id
+    ) THEN 
+        SIGNAL SQLSTATE '45000'
+            SET MESSAGE_TEXT = 'There is no entrance with such ID';
+    ELSEIF NOT EXISTS (
+        SELECT 1 FROM employee
+        WHERE id = v_employee_id
+    ) THEN 
+        SIGNAL SQLSTATE '45000'
+            SET MESSAGE_TEXT = 'There is no employee with such ID';
+    ELSE
+        INSERT INTO entrance_shift(employee_id, entrance_id, begin, end)
+        VALUES
+            (v_employee_id, v_entrance_id, v_begin, v_end);
+    END IF;
 END //
+
+
+
+
+DELIMITER ;
