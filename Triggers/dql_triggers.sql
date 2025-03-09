@@ -27,7 +27,7 @@ END //
 
 -- 3. Update species population log when updating date
 
-CREATE TRIGGER LogPopulationChange
+CREATE TRIGGER LogPopulationChangeUpdate
 BEFORE UPDATE ON area_species
 FOR EACH ROW
 BEGIN
@@ -63,7 +63,7 @@ FOR EACH ROW
 BEGIN
     IF OLD.role_type != OLD.role_type THEN
         INSERT INTO employee_role_changes (employee_id, old_role, new_role, change_date)
-        VALUES (OLD.employee_id, OLD.role_type, NEW.role_type, NOW());
+        VALUES (OLD.id, OLD.role_type, NEW.role_type, NOW());
     END IF;
 END//
 
@@ -198,7 +198,7 @@ AFTER INSERT ON species
 FOR EACH ROW
 BEGIN
     INSERT INTO project_researcher_species (project_id, researcher_id, species_id)
-    VALUES (1, 1, NEW.species_id); -- Assuming project_id 1 and researcher_id 1 exist
+    VALUES (1, 1, NEW.id); -- Assuming project_id 1 and researcher_id 1 exist
 END//
 
 
@@ -208,7 +208,7 @@ CREATE TRIGGER trg_shift_duration_limit
 BEFORE INSERT ON entrance_shift
 FOR EACH ROW
 BEGIN
-    IF TIMESTAMPDIFF(HOUR, NEW.shift_begin, NEW.shift_end) > 8 THEN
+    IF TIMESTAMPDIFF(HOUR, NEW.begin, NEW.end) > 8 THEN
         SIGNAL SQLSTATE '45000'
         SET MESSAGE_TEXT = 'Shift duration cannot exceed 8 hours';
     END IF;

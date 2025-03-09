@@ -260,8 +260,6 @@ GRANT ALTER, INSERT, SELECT, UPDATE, DELETE ON natural_parks.visitor_stay TO 'vi
 
 
 
----------------------------------------------------------------------------------------------------------------
-
 -- Creation of tables used in triggers and events
 -- I insert these tables here because triggers don't allow
 -- table creation statements within themselves
