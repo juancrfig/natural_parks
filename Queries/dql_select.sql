@@ -27,3 +27,16 @@ LEFT JOIN park_area AS pa ON pa.park_id = p.id
 LEFT JOIN area_species AS ar_es ON ar_es.area_id = pa.area_id
 GROUP BY p.name ORDER BY number_of_species DESC;
 
+
+-- 4. Parks older than the average
+
+SELECT name, TIMESTAMPDIFF(YEAR, foundation_date, YEAR(NOW())) AS years_old 
+FROM park
+WHERE years_old > (
+    SELECT AVG(count_years) FROM (
+        SELECT TIMESTAMPDIFF(YEAR, foundation_date, YEAR(NOW()))
+        FROM park
+        GROUP BY name
+    ) AS avg_query
+);
+
