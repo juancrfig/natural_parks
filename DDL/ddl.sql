@@ -263,6 +263,9 @@ GRANT ALTER, INSERT, SELECT, UPDATE, DELETE ON natural_parks.visitor_stay TO 'vi
 ---------------------------------------------------------------------------------------------------------------
 
 -- Creation of tables used in triggers and events
+-- I insert these tables here because triggers don't allow
+-- table creation statements within themselves
+-- (I guess these tables don't need to have the 50 insertions)
 
 CREATE TABLE IF NOT EXISTS salaryLogs(
     id INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -271,4 +274,47 @@ CREATE TABLE IF NOT EXISTS salaryLogs(
     to_salary DECIMAL(10,2) NOT NULL CHECK(to_salary > 0),
     change_date DATE NOT NULL,
     FOREIGN KEY(employee_id) REFERENCES employee(id)
+);
+
+CREATE TABLE species_population_log (
+    id INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    species_id INT UNSIGNED NOT NULL,
+    area_id INT UNSIGNED NOT NULL,
+    population INT UNSIGNED NOT NULL,
+    change_date DATE NOT NULL,
+    FOREIGN KEY(species_id) REFERENCES species(id),
+    FOREIGN KEY(area_id) REFERENCES area(id)
+);
+
+CREATE TABLE employee_role_changes(
+    id INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    employee_id INT UNSIGNED NOT NULL,
+    old_role ENUM('Management', 'Vigilance', 'Conservation', 'Research') NOT NULL,
+    new_role ENUM('Management', 'Vigilance', 'Conservation', 'Research') NOT NULL,
+    change_date DATE NOT NULL
+);
+
+CREATE TABLE species_alert (
+    id INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    species_id INT UNSIGNED NOT NULL, 
+    area_id INT UNSIGNED NOT NULL, 
+    population INT UNSIGNED NOT NULL, 
+    alert_date DATE NOT NULL,
+    FOREIGN KEY(species_id) REFERENCES species(id),
+    FOREIGN KEY(area_id) REFERENCES area(id)
+);
+
+CREATE TABLE department_entity_log(
+    id INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    department_id INT UNSIGNED NOT NULL,
+    entity_id INT UNSIGNED NOT NULL,
+    action VARCHAR(15) NOT NULL CHECK(TRIM(action) != ''),
+    log_date DATE NOT NULL
+);
+
+CREATE TABLE employee_hire_log (
+    id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+    employee_id INT UNSIGNED NOT NULL,
+    hire_date DATETIME NOT NULL,
+    FOREIGN KEY (employee_id) REFERENCES employee(id) ON DELETE CASCADE
 );
