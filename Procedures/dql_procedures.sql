@@ -147,11 +147,11 @@ BEGIN
         SIGNAL SQLSTATE '45000'
         SET MESSAGE_TEXT = 'There is no entrance with such ID';
     ELSEIF NOT EXISTS (
-        SELECT 1 FROM employee
+        SELECT 1 FROM management_staff
         WHERE id = v_employee_id
     ) THEN 
         SIGNAL SQLSTATE '45000'
-        SET MESSAGE_TEXT = 'There is no employee with such ID';
+        SET MESSAGE_TEXT = 'There is no employee in management staff with such ID';
     ELSE
 
         SELECT e.end INTO datetime_last_shift
@@ -169,7 +169,53 @@ BEGIN
 END //
 
 
--- 5. Log a visitor’s entry at an entrance
+-- 5. Assign manually a shift for an employee, at a specific entrance in a specific date
+CREATE PROCEDURE AssignSpecificEntranceShift(
+    IN v_employee_id INT,
+    IN v_entrance_id INT,
+    IN v_begin_date DATE
+)
+BEGIN
+    DECLARE v_err_code INT;
+    DECLARE v_err_msg TEXT;
+    DECLARE msg TEXT;
+    DECLARE the_begin_datetime DATETIME;
+    DECLARE v_end_date DATETIME;
+
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION
+    BEGIN
+        GET DIAGNOSTICS CONDITION 1
+        v_err_code = MYSQL_ERRNO,
+        v_err_msg = MESSAGE_TEXT;
+        SET msg = CONCAT('Error code ', v_err_code, ' :', v_err_msg);
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = msg;
+    END;
+
+    IF NOT EXISTS (
+        SELECT 1 FROM management_staff
+        WHERE employee_id = v_employee_id
+    ) THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'There is no management employee with such ID';
+    ELSEIF NOT EXISTS (
+        SELECT 1 FROM entrance
+        WHERE id = v_entrance_id
+    ) THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'There is no entrance with such ID';
+    ELSE
+        SET the_begin_datetime = TIMESTAMP(v_begin_date, '08:00:00');
+        SET v_end_date = TIMESTAMP(v_begin_date, '16:00:00');
+
+        INSERT INTO entrance_shift(employee_id, entrance_id, begin, end)
+        VALUES
+        (v_employee_id, v_entrance_id, the_begin_datetime, v_end_date);
+    END IF;
+END//
+
+
+-- 6. Log a visitor’s entry at an entrance
 
 CREATE PROCEDURE RegisterVisitorAtEntrance(
     IN v_visitor_cedula INT,
