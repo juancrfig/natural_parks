@@ -316,3 +316,45 @@ CREATE TABLE employee_hire_log (
     hire_date DATETIME NOT NULL,
     FOREIGN KEY (employee_id) REFERENCES employee(id) ON DELETE CASCADE
 );
+
+-- Table for Event 1: Daily Backup of Employee Data
+CREATE TABLE employee_backup (
+    backup_id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+    employee_id INT UNSIGNED NOT NULL,
+    cedula BIGINT NOT NULL,
+    name VARCHAR(80) NOT NULL,
+    address VARCHAR(150) NOT NULL,
+    mobile_phone INT UNSIGNED NOT NULL,
+    salary DECIMAL(10,2) NOT NULL,
+    role_type ENUM('Management', 'Vigilance', 'Conservation', 'Research') NOT NULL,
+    backup_date DATE NOT NULL
+);
+
+-- Table for Event 3: Monthly Visitor Summary
+CREATE TABLE visitor_monthly_summary (
+    id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+    year INT NOT NULL,
+    month INT NOT NULL,
+    total_visitors INT NOT NULL,
+    summary_date DATE NOT NULL
+);
+
+-- Table for Event 7: Monthly Department Report Generation
+CREATE TABLE department_report (
+    id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+    department_id INT UNSIGNED NOT NULL,
+    total_parks INT NOT NULL,
+    total_employees INT NOT NULL,
+    report_date DATE NOT NULL,
+    FOREIGN KEY(department_id) REFERENCES department(id)
+);
+
+-- Table for Event 8: Yearly Archiving of Old Projects
+CREATE TABLE project_archive (
+    id INT UNSIGNED PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    budget DECIMAL(15,2) NOT NULL,
+    start_date DATE NOT NULL,
+    end_date DATE NOT NULL,
+    archive_date DATE NOT NULL
+);
