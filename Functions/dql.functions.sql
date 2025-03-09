@@ -395,6 +395,4 @@ BEGIN
     RETURN IFNULL(avg_species, 0);
 END //
 
-
-
 DELIMITER ;

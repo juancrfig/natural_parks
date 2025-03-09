@@ -258,3 +258,17 @@ GRANT ALTER, INSERT, SELECT, UPDATE, DELETE ON natural_parks.visitor TO 'visitor
 GRANT ALTER, INSERT, SELECT, UPDATE, DELETE ON natural_parks.visitor_log TO 'visitor_manager'@'localhost';
 GRANT ALTER, INSERT, SELECT, UPDATE, DELETE ON natural_parks.visitor_stay TO 'visitor_manager'@'localhost';
 
+
+
+---------------------------------------------------------------------------------------------------------------
+
+-- Creation of tables used in triggers and events
+
+CREATE TABLE IF NOT EXISTS salaryLogs(
+    id INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    employee_id INT UNSIGNED NOT NULL,
+    from_salary DECIMAL(10,2) NOT NULL CHECK(from_salary > 0),
+    to_salary DECIMAL(10,2) NOT NULL CHECK(to_salary > 0),
+    change_date DATE NOT NULL,
+    FOREIGN KEY(employee_id) REFERENCES employee(id)
+);
