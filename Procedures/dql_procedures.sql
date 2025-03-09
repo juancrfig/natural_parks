@@ -140,33 +140,94 @@ BEGIN
             SET MESSAGE_TEXT = msg;
     END;
 
-    SELECT e.end INTO datetime_last_shift
-    FROM entrance_shift AS e
-    WHERE entrance_id = v_entrance_id
-    ORDER BY e.end DESC LIMIT 1;
-
-    SET v_begin = DATETIME(DATE_ADD(DATE(datetime_last_shift), INTERVAL 1 DAY), '08:00:00');
-
-    SET v_end = DATETIME(DATE(v_begin), '16:00:00');
-
     IF NOT EXISTS (
         SELECT 1 FROM entrance 
         WHERE id = v_entrance_id
     ) THEN 
         SIGNAL SQLSTATE '45000'
-            SET MESSAGE_TEXT = 'There is no entrance with such ID';
+        SET MESSAGE_TEXT = 'There is no entrance with such ID';
     ELSEIF NOT EXISTS (
         SELECT 1 FROM employee
         WHERE id = v_employee_id
     ) THEN 
         SIGNAL SQLSTATE '45000'
-            SET MESSAGE_TEXT = 'There is no employee with such ID';
+        SET MESSAGE_TEXT = 'There is no employee with such ID';
     ELSE
+
+        SELECT e.end INTO datetime_last_shift
+        FROM entrance_shift AS e
+        WHERE entrance_id = v_entrance_id
+        ORDER BY e.end DESC LIMIT 1;
+
+        SET v_begin = TIMESTAMP(DATE_ADD(DATE(datetime_last_shift), INTERVAL 1 DAY), '08:00:00');
+        SET v_end = TIMESTAMP(DATE(v_begin), '16:00:00');
+        
         INSERT INTO entrance_shift(employee_id, entrance_id, begin, end)
         VALUES
             (v_employee_id, v_entrance_id, v_begin, v_end);
     END IF;
 END //
+
+
+-- 5. Log a visitor’s entry at an entrance
+
+CREATE PROCEDURE RegisterVisitorAtEntrance(
+    IN v_visitor_cedula INT,
+    IN v_entrance_id INT
+)
+BEGIN
+    DECLARE v_err_code INT;
+    DECLARE v_err_msg TEXT;
+    DECLARE msg TEXT;
+    DECLARE v_entrance_shift_id INT;
+    DECLARE v_current_time DATETIME;
+    DECLARE v_visitor_id INT;
+
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION
+    BEGIN
+        GET DIAGNOSTICS CONDITION 1
+            v_err_code = MYSQL_ERRNO,
+            v_err_msg = MESSAGE_TEXT;
+            SET msg = CONCAT('Error code ', v_err_code, ': ', v_err_msg);
+            SIGNAL SQLSTATE '45000'
+            SET MESSAGE_TEXT = msg;
+    END;
+
+    IF NOT EXISTS (
+        SELECT 1 FROM visitor
+        WHERE cedula = v_visitor_cedula
+    ) THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'There is no visitor with such cedula';
+    ELSEIF NOT EXISTS (
+        SELECT 1 FROM entrance
+        WHERE id = v_entrance_id
+    ) THEN 
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'There is no entrance with such ID';
+    ELSE 
+        SET v_current_time = NOW();
+        SELECT id INTO v_entrance_shift_id 
+        FROM entrance_shift
+        WHERE entrance_id = v_entrance_id AND
+        v_current_time BETWEEN begin AND end
+        LIMIT 1;
+
+        IF (
+            v_entrance_shift_id IS NULL
+        ) THEN
+            SIGNAL SQLSTATE '45000'
+            SET MESSAGE_TEXT = 'There is no active shift at this time for this entrance. Please, register a shift or try later';
+        END IF;
+
+        SELECT id INTO v_visitor_id 
+        FROM visitor
+        WHERE cedula = v_visitor_cedula; 
+
+        INSERT INTO visitor_log(entrance_shift_id, visit_time, visitor_id) VALUES
+        (v_entrance_shift_id, v_current_time, v_visitor_id);
+    END IF;
+END//
 
 
 
