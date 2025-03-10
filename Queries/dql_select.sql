@@ -1,4 +1,3 @@
-START TRANSACTION;
 -- Query 1: Total employees per role type with their average salary where salary exceeds the average for Management
 SELECT e.role_type, COUNT(e.id) as total_employees, AVG(e.salary) as avg_salary
 FROM employee e
@@ -940,5 +939,3 @@ WHERE asp.species_id IN (
 )
 GROUP BY p.name
 HAVING species_count > 3;
-
-COMMIT;
