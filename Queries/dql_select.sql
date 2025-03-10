@@ -1,3 +1,4 @@
+START TRANSACTION;
 -- Query 1: Total employees per role type with their average salary where salary exceeds the average for Management
 SELECT e.role_type, COUNT(e.id) as total_employees, AVG(e.salary) as avg_salary
 FROM employee e
@@ -822,14 +823,27 @@ WHERE a.id IN (SELECT area_id FROM vigilance_area GROUP BY area_id HAVING COUNT(
 GROUP BY a.name;
 
 -- Query 91: Average population of species per park with more than 5 researchers
-SELECT p.name, AVG(asp.population) as avg_population, COUNT(DISTINCT prs.researcher_id) as researcher_count
+SELECT p.name, 
+       AVG(asp.population) AS avg_population, 
+       COUNT(DISTINCT prs.researcher_id) AS researcher_count
 FROM park p
 JOIN park_area pa ON p.id = pa.park_id
 JOIN area_species asp ON pa.area_id = asp.area_id
 JOIN project_researcher_species prsp ON asp.species_id = prsp.species_id
 JOIN project_researcher prs ON prsp.project_id = prs.project_id
-WHERE p.id IN (SELECT park_id FROM park_area WHERE area_id IN (SELECT species_id FROM project_researcher_species GROUP BY project_id HAVING COUNT(researcher_id) > 5))
+WHERE p.id IN (
+    SELECT pa.park_id 
+    FROM park_area pa
+    WHERE pa.area_id IN (
+        SELECT prsp.species_id 
+        FROM project_researcher_species prsp
+        JOIN project_researcher prs ON prsp.project_id = prs.project_id
+        GROUP BY prsp.project_id
+        HAVING COUNT(DISTINCT prs.researcher_id) > 5
+    )
+)
 GROUP BY p.name;
+
 
 -- Query 92: Total visitors per lodging with check-out times after park average
 SELECT l.name, COUNT(vs.id) as visitor_count, MAX(vs.check_out) as latest_check_out
@@ -900,13 +914,12 @@ GROUP BY p.name ORDER BY number_of_species DESC;
 
 -- 99. Parks older than the average
 
-SELECT name, TIMESTAMPDIFF(YEAR, foundation_date, YEAR(NOW())) AS years_old 
+SELECT name, TIMESTAMPDIFF(YEAR, foundation_date, DATE(NOW())) AS years_old 
 FROM park
-WHERE years_old > (
+WHERE TIMESTAMPDIFF(YEAR, foundation_date, DATE(NOW())) > (
     SELECT AVG(count_years) FROM (
-        SELECT TIMESTAMPDIFF(YEAR, foundation_date, YEAR(NOW()))
+        SELECT TIMESTAMPDIFF(YEAR, foundation_date, DATE(NOW())) AS count_years
         FROM park
-        GROUP BY name
     ) AS avg_query
 );
 
@@ -927,3 +940,5 @@ WHERE asp.species_id IN (
 )
 GROUP BY p.name
 HAVING species_count > 3;
+
+COMMIT;
